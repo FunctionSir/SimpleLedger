@@ -53,7 +53,7 @@ fn calculate(ledger: &Ini) {
     );
     let total_cent: i64 = total_income_cent - total_expend_cent;
     let total_frac: i64 = total_cent.abs() % 100;
-    let total_round: i64 = total_cent + (if total_cent > 0 { -1 } else { 1 }) * total_frac;
+    let total_round: i64 = (total_cent + (if total_cent > 0 { -1 } else { 1 }) * total_frac) / 100;
     println!("TOTAL\t\t{}.{:02}", total_round, total_frac);
     io::stdout().flush().unwrap();
 }
