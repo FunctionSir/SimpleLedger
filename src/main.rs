@@ -9,7 +9,7 @@
  */
 extern crate ini;
 use ini::Ini;
-use std::io::{self, stdout, Write};
+use std::io::{self, Write};
 fn disp_record(ledger: &Ini, record: &str) {
     println!("Record No. {}", record);
     let section = ledger.section(Some(record)).unwrap();
@@ -25,7 +25,7 @@ fn disp_record(ledger: &Ini, record: &str) {
         change_round,
         change_frac
     );
-    stdout().flush().unwrap();
+    io::stdout().flush().unwrap();
 }
 fn calculate(ledger: &Ini) {
     let mut total_income_cent: i64 = 0;
@@ -55,13 +55,13 @@ fn calculate(ledger: &Ini) {
     let total_frac: i64 = total_cent.abs() % 100;
     let total_round: i64 = total_cent + (if total_cent > 0 { -1 } else { 1 }) * total_frac;
     println!("TOTAL\t\t{}.{:02}", total_round, total_frac);
-    stdout().flush().unwrap();
+    io::stdout().flush().unwrap();
 }
 fn main() {
     println!("Simple Ledger Ver 0.1.0 (Furina)");
     println!("This is a libre software under AGPLv3");
     print!("(LOAD) ");
-    stdout().flush().unwrap();
+    io::stdout().flush().unwrap();
     let mut ledger_file = String::new();
     io::stdin()
         .read_line(&mut ledger_file)
@@ -72,7 +72,7 @@ fn main() {
     println!("Record Count: {}", ledger.sections().count() - 1);
     loop {
         print!("(V/C) ");
-        stdout().flush().unwrap();
+        io::stdout().flush().unwrap();
         let mut cmd = String::new();
         io::stdin()
             .read_line(&mut cmd)
